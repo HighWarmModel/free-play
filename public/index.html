@@ -6,6 +6,32 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title>free-play</title>
+    <script>
+      (function () {
+        function changeScreenControlRemFunc (options, callback) {
+          let { timer, later, context, args } = {}
+          const time = options.time || 100
+          const html = document.documentElement || document.querySelector('html')
+          later = function () {
+           return setTimeout(function () {
+              timer = null
+              // 业务逻辑
+            const clinetWidth = document.documentElement.clientWidth || document.body.clientWidth
+            html.style.fontSize = clinetWidth / 7.5 + 'px'
+            }, time)
+          }
+          return function () {
+            context = this
+            args = arguments
+              clearTimeout(timer)
+              timer = later.apply(context, args)
+          }
+        }
+        window.onresize = changeScreenControlRemFunc({time: 200})
+        window.onresize()
+      })()
+    </script>
+    <script src="https://res2.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
   </head>
   <body>
     <noscript>
