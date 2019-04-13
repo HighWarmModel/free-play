@@ -49,20 +49,20 @@ export default {
   display inline-block
   .receive-tutorial-btn
     transition transform 0.1s ease-in-out
-    width sizes(190)
-    height sizes(60)
+    width rems(190)
+    height rems(60)
     &:active
       transform scale(0.9)
   .know-btn
     transition transform 0.1s ease-in-out
-    width sizes(320)
-    height sizes(80)
+    width rems(320)
+    height rems(80)
     &:active
       transform scale(0.9)
   .coin-operated-btn
     transition transform 0.1s ease-in-out
-    width sizes(200)
-    height sizes(96)
+    width rems(200)
+    height rems(96)
     &:active
       transform scale(0.9)
 </style>

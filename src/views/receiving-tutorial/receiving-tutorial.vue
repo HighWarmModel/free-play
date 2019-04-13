@@ -41,22 +41,22 @@ export default {
 <style lang="stylus" scoped>
 .receiving-tutorial
   position relative
+  display flex
+  align-items stretch
   width 100vw
-  height 100vh
   min-height 100vh
   background-color #fff0e9
   box-sizing border-box
-  padding sizes(18) sizes(30)
+  padding rems(18) rems(30)
   .receiving-tutorial-container
     width 100%
-    height 100%
     background-color #ffffff
-    border-radius sizes(20)
+    border-radius rems(20)
     .receiving-tutorial-banner
-      width sizes(339)
-      height sizes(41)
-      margin-top sizes(35)
+      width rems(339)
+      height rems(41)
+      margin-top rems(35)
     .receiving-tutorial-course
-      width sizes(530)
-      height sizes(850)
+      width rems(530)
+      height rems(850)
 </style>

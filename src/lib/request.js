@@ -2,6 +2,8 @@ import axios from 'axios'
 import qs from 'qs'
 import store from '@/store'
 import { APP_API_NAME } from '@/api'
+import config from '@/config'
+const { cookieTokenName } = config
 // import { checkObjectTool } from './tools'
 // import { getToken, setToken } from './utils'
 // 需求： 1、请求插件 2、接口出错收集
@@ -48,7 +50,7 @@ class HttpRequest {
     let format = options.format
     headers = { ...head, ...headers }
     if (!options.notLogin) {
-      headers.token = store.state.user.token
+      headers[cookieTokenName] = store.state.user.token
     }
     let config = {
       method,
