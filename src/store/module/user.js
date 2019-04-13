@@ -1,11 +1,12 @@
 import { getToken, setToken, removeToken } from '@/lib/utils'
-import { login, getUserInfo } from '@/api'
+import { getUserInfoApi } from '@/api'
 export default {
   state: {
     token: getToken(),
     userId: '',
     userName: '',
-    userHeadImage: ''
+    userHeadImage: '',
+    coinBalance: 0
   },
   mutations: {
     // 设置用户头像
@@ -20,6 +21,10 @@ export default {
     USER_SETUSERNAME_MUTATE (state, userName) {
       state.userName = userName
     },
+    // 设置剩余币数
+    USER_SETCOINBALANCE_MUTATE (state, coin) {
+      state.coinBalance = coin
+    },
     // 设置token
     USER_SETTOKEN_MUTATE (state, token) {
       state.token = token
@@ -31,31 +36,28 @@ export default {
     }
   },
   actions: {
+    // 获取用户信息
     async USER_GETUSERINFO_ACTION ({ commit, state }) {
-      let res = await getUserInfo()
-      if (res.code === 1) {
-        commit('USER_SETUSERHEADIMAGE_MUTATE', res.data.avator)
-        commit('USER_SETUSERID_MUTATE', res.data.user_id)
-        commit('USER_SETUSERNAME_MUTATE', res.data.name)
-        commit('USER_SETACCESS_MUTATE', res.data.access)
+      let res = await getUserInfoApi()
+      if (res && res.return_code === 0) {
+        const { coin } = res.data
+        commit('USER_SETCOINBALANCE_MUTATE', coin)
       }
       return res
     },
     // 登录
-    async USER_LOGIN_ACTION ({ commit, dispatch }, { userName, password }) {
-      let res = await login({ account: userName, password })
-      if (res.code === 1) {
-        let res1 = await dispatch('USER_GETUSERINFO_ACTION')
-        if (res1.code === 1) {
-          commit('USER_SETTOKEN_MUTATE', res.data.token)
-        }
-        return res1
+    async USER_LOGIN_ACTION ({ commit, dispatch }, { token }) {
+      if (token) {
+        commit('USER_SETTOKEN_MUTATE', token)
       }
+      let res = await dispatch('USER_GETUSERINFO_ACTION')
       return res
     },
     // 登出去除相关信息
     async USER_LOGOUT_ACTION ({ state, commit }) {
-      commit('setTokenMutate', '')
+      commit('USER_SETTOKEN_MUTATE')
+      // location.href = `${location.origin}/wxxcx/index.php/Home`
+      // location.href = `https://www.baidu.com`
       return true
     }
   }

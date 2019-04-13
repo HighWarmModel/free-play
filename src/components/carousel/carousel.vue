@@ -4,7 +4,7 @@
     <swiper :options="swiperOption">
       <swiper-slide class="carousel-container" v-for="(items, index) in swiperData" :key="index">
         <div class="carousel-content flex-row flex-center">
-          <DistinguishCode />
+          <DistinguishCode :tid="items.id - 0" :src="items.url" />
         </div>
       </swiper-slide>
     </swiper>
@@ -16,10 +16,14 @@ import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import DistinguishCode from './distinguish-code'
 export default {
   name: 'carousel',
-
+  props: {
+    swiperData: {
+      default: () => [],
+      type: Array
+    }
+  },
   data () {
     return {
-      swiperData: [1, 2, 3, 4, 5],
       swiperOption: {
         slidesPerView: 'auto',
         spaceBetween: 10,
@@ -40,7 +44,8 @@ export default {
     DistinguishCode
   },
 
-  computed: {},
+  computed: {
+  },
 
   methods: {},
 
@@ -59,9 +64,10 @@ export default {
     width 100%
     height 100%
   .carousel-swiper-pagination
+    position relative
     font-size 0
     width 100%
-    margin-top rems(40)
+    padding rems(40) 0
     .carousel-bullet
       display inline-block
       width rems(24)

@@ -47,6 +47,7 @@ export default {
 <style lang="stylus" scoped>
 .colorful-button
   display inline-block
+  font-size 0
   .receive-tutorial-btn
     transition transform 0.1s ease-in-out
     width rems(190)

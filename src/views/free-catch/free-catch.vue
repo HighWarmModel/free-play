@@ -1,18 +1,27 @@
 <!-- 免费抓抓娃娃 -->
 <template>
   <div class="free-catch flex-column">
-    <div class="free-catch-tip">
-      <img class="free-catch-tip-img" :src="freeReceiveTip">
-      <div class="free-catch-tip-btn">
-        <ColorfulButton @trigger-click="handleClick" src="receive-tutorial-btn" />
+    <div>
+      <div class="free-catch-tip">
+        <img class="free-catch-tip-img" :src="freeReceiveTip">
+        <div class="free-catch-tip-btn">
+          <ColorfulButton @trigger-click="handleClick" src="receive-tutorial-btn" />
       </div>
     </div>
-    <div class="free-catch-code">
-      <Carousel />
     </div>
-    <div>
-      <div></div>
-
+    <div class="free-catch-code">
+      <template v-if="codeList.length > 0">
+        <Carousel :swiper-data="codeList" />
+      </template>
+      <template v-else>
+        <div class="free-catch-empty">
+          <EmptyReward />
+        </div>
+      </template>
+    </div>
+    <div class="free-catch-bottom">
+      <RewardPopup :game-coin="getAnimateCoin" :animate="animate" />
+      <CoinOperatedColumn />
     </div>
   </div>
 </template>
@@ -20,34 +29,65 @@
 <script>
 import ColorfulButton from '@c/colorful-button'
 import Carousel from '@c/carousel'
+import CoinOperatedColumn from '@c/coin-operated-column'
 import freeReceiveTip from '@a/img/free_receive_tip.png'
+import EmptyReward from '@c/empty-reward'
+import RewardPopup from '@c/reward-popup'
+import { mapState } from 'vuex'
+import { setTimeout } from 'timers'
 export default {
   name: 'free_catch',
 
   data () {
     return {
-      freeReceiveTip: freeReceiveTip
+      freeReceiveTip: freeReceiveTip,
+      timer: null,
+      animate: false
     }
   },
 
   components: {
     ColorfulButton,
-    Carousel
+    Carousel,
+    CoinOperatedColumn,
+    EmptyReward,
+    RewardPopup
   },
 
-  computed: {},
-
+  computed: {
+    ...mapState({
+      codeList: state => state.app.codeList,
+      getAnimateCoin: state => state.app.getAnimateCoin
+    })
+  },
+  watch: {
+    getAnimateCoin (afterValue, beforeValue) {
+      if (afterValue > 0) {
+        this.animate = true
+        this.timer = setTimeout(() => {
+          this.animate = false
+        }, 2000)
+      }
+    }
+  },
   methods: {
     handleClick () {
       this.$router.push({ name: 'receiving_tutorial' })
     }
   },
-
-  mounted () {}
+  created () {
+  },
+  mounted () {
+  },
+  beforeDestroy () {
+    this.timer = null
+    clearTimeout(this.timer)
+  }
 }
 </script>
 <style lang="stylus" scoped>
 .free-catch
+  height 100vh
   justify-content space-between
   .free-catch-tip
     position relative
@@ -62,4 +102,8 @@ export default {
       position absolute
       right 0
       bottom 0
+  .free-catch-empty
+    padding 0 rems(30)
+  .free-catch-bottom
+    position relative
 </style>

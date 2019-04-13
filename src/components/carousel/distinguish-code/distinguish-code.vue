@@ -15,24 +15,32 @@
       <template v-if="!notPress">
         <img
           class="distinguish-code-content"
-          :src="code"
+          :src="src"
         >
       </template>
     </transition>
+    <div v-show="false">
+      <img :src="src">
+    </div>
   </div>
 </template>
 
 <script>
+import { startTaskApi } from '@/api'
 import longPressBtn from '@a/img/long_press_btn.png'
-import code from '@a/img/1555130384.png'
+import { clearTimeout } from 'timers'
+// import code from '@a/img/1555130384.png'
 export default {
   name: 'distinguish_code',
-
+  props: {
+    src: String,
+    tid: Number
+  },
   data () {
     return {
       longPressBtn: longPressBtn,
       notPress: true,
-      code: code,
+      // code: code,
       timer: null
     }
   },
@@ -47,14 +55,28 @@ export default {
       this.timer = setTimeout(() => {
         this.timer = null
         this.notPress = false
+        this.startTask()
       }, 500)
     },
     handleTouchEnd () {
       clearTimeout(this.timer)
+    },
+    startTask () {
+      startTaskApi({
+        task_id: this.tid
+      }).then(res => {
+        if (res && res.return_code !== 0) {
+          alert(res.msg)
+        }
+      })
     }
   },
 
-  mounted () {}
+  mounted () {},
+  beforeMount () {
+    this.timer = null
+    clearTimeout(this.timer)
+  }
 }
 </script>
 <style lang="stylus">
