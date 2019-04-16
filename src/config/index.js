@@ -47,12 +47,8 @@ export default {
   /**
    * @description 需要加载的插件
    */
-  plugin: {
-    'error-collection': { // 收集错误
-      showInHeader: true, // 设为false后不会在顶部显示错误日志徽标
-      developmentOff: false // 设为true后在开发环境不会收集错误信息，方便开发中排查错误
-    },
-    'mixin': { // 混入 禁止在里面写公用方法（防止强耦合）可以在额外单独写一个mixin引入
+  plugins: {
+    'tips': {
       isOff: true // 是否开启
     }
   }

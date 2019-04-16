@@ -56,8 +56,7 @@ export default {
     // 登出去除相关信息
     async USER_LOGOUT_ACTION ({ state, commit }) {
       commit('USER_SETTOKEN_MUTATE')
-      location.href = `${location.origin}/wxxcx/index.php/Home`
-      // location.href = `https://www.baidu.com`
+      // location.href = `${location.origin}/wxxcx/index.php/Home`
       return true
     }
   }

@@ -6,7 +6,8 @@ export default {
     machineInfo: { // 机台信息
       name: '',
       coins_sell: '',
-      no: ''
+      no: '',
+      id: ''
     },
     getAnimateCoin: 0
   },
@@ -26,8 +27,8 @@ export default {
   },
   actions: {
     // 上币
-    async USER_COINPLAY_ACTION ({ commit, state, rootState }, { coin }) {
-      let res = await coinPlayApi
+    async USER_COINPLAY_ACTION ({ commit, state, rootState }) {
+      let res = await coinPlayApi({ mid: state.machineInfo.id })
       if (res && res.return_code === 0) {
         alert('上币成功！')
         commit('USER_SETCOINBALANCE_MUTATE', rootState.user.coinBalance - state.machineInfo.coins_sell)

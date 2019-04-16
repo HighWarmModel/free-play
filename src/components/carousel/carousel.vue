@@ -1,18 +1,37 @@
 <!-- 轮播 -->
 <template>
-  <div class="carousel">
-    <swiper :options="swiperOption">
-      <swiper-slide class="carousel-container" v-for="(items, index) in swiperData" :key="index">
-        <div class="carousel-content flex-row flex-center">
-          <DistinguishCode :tid="items.id - 0" :src="items.url" />
-        </div>
-      </swiper-slide>
-    </swiper>
-    <div class="swiper-pagination carousel-swiper-pagination" slot="pagination"></div>
+  <div class="carousel flex-column flex-between-center">
+    <div class="carousel-swiper">
+      <swiper
+        :options="swiperOption"
+        @slideChangeTransitionEnd="handleSildeChange"
+        style="height: 100%"
+      >
+        <swiper-slide
+          class="carousel-container"
+          v-for="(items, index) in currentData"
+          :key="index"
+        >
+          <div class="carousel-content flex-row flex-center">
+            <DistinguishCode
+              :not-press="items"
+              @trigger-hide="handleHide"
+              :tid="items.id - 0"
+              :src="items.url"
+            />
+          </div>
+        </swiper-slide>
+      </swiper>
+    </div>
+    <div
+      class="swiper-pagination carousel-swiper-pagination"
+      slot="pagination"
+    ></div>
   </div>
 </template>
 <script>
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
+import { mapState } from 'vuex'
 import DistinguishCode from './distinguish-code'
 export default {
   name: 'carousel',
@@ -34,30 +53,67 @@ export default {
           bulletClass: 'carousel-bullet',
           bulletActiveClass: 'carousel-bullet-active'
         }
-      }
+      },
+      currentData: []
     }
   },
 
+  computed: {
+    ...mapState({
+      codeList: state => state.app.codeList
+    })
+  },
+  watch: {
+    swiperData: {
+      handler (val) {
+        this.currentData = val.map(v => {
+          return { ...v, hide: true }
+        })
+      },
+      immediate: true
+    }
+  },
   components: {
     swiper,
     swiperSlide,
     DistinguishCode
   },
 
-  computed: {
+  methods: {
+    handleSildeChange () {
+      this.currentData = this.currentData.map(v => {
+        return { ...v, hide: true }
+      })
+    },
+    handleHide (item) {
+      this.currentData = this.currentData.map(v => {
+        let items = { ...v }
+        if (item.id === v.id) {
+          items = { ...item }
+        }
+        return items
+      })
+    }
   },
+  created () {
+    // console.log(this.swiperData.push({}))
+  },
+  mounted () {
 
-  methods: {},
-
-  mounted () {}
+  }
 }
 </script>
 <style lang="stylus">
 .carousel
   position relative
+  height 100%
+  .carousel-swiper
+    flex 1
   .carousel-container
+    // width rems(539)
+    // height rems(728)
     width rems(539)
-    height rems(728)
+    height 100%
     background-color #fff0e9
     border-radius rems(26)
   .carousel-content

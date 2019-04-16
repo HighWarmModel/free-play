@@ -8,9 +8,10 @@ function startTaskApi (data) {
   })
 }
 // 结束任务
-function endTaskApi () {
+function endTaskApi (data) {
   return HttpReq.formPost({
-    url: 'Home/completeTask'
+    url: 'Home/completeTask',
+    data
   })
 }
 // 任务列表

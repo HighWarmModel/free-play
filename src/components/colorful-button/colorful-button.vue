@@ -50,8 +50,8 @@ export default {
   font-size 0
   .receive-tutorial-btn
     transition transform 0.1s ease-in-out
-    width rems(190)
-    height rems(60)
+    width rems(170)
+    height rems(50)
     &:active
       transform scale(0.9)
   .know-btn

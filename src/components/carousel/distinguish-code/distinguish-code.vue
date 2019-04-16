@@ -1,8 +1,9 @@
 <!-- 识别二维码 -->
 <template>
   <div class="distinguish-code">
+    <CircleProgress :show="progress" />
     <transition name="fade-scale">
-      <template v-if="notPress">
+      <template v-if="notPress.hide">
         <img
           class="distinguish-code-btn"
           :src="longPressBtn"
@@ -12,7 +13,7 @@
       </template>
     </transition>
     <transition name="fade-scale">
-      <template v-if="!notPress">
+      <template v-if="!notPress.hide">
         <img
           class="distinguish-code-content"
           :src="src"
@@ -27,55 +28,71 @@
 
 <script>
 import { startTaskApi } from '@/api'
+import CircleProgress from '@hhf/circle-progress'
 import longPressBtn from '@a/img/long_press_btn.png'
-import { clearTimeout } from 'timers'
 // import code from '@a/img/1555130384.png'
 export default {
   name: 'distinguish_code',
   props: {
     src: String,
-    tid: Number
+    tid: Number,
+    notPress: {
+      type: Object,
+      default: () => ({})
+    }
   },
   data () {
     return {
       longPressBtn: longPressBtn,
-      notPress: true,
       // code: code,
-      timer: null
+      timer: null,
+      progress: false
     }
   },
 
-  components: {},
+  components: {
+    CircleProgress
+  },
 
   computed: {},
 
   methods: {
     handleTouchStart () {
+      if (this.notPress.hide) {
+        console.log(123)
+        this.progress = true
+      }
       clearTimeout(this.timer)
       this.timer = setTimeout(() => {
         this.timer = null
-        this.notPress = false
+        this.$emit('trigger-hide', {
+          ...this.notPress,
+          hide: false
+        })
+        // this.notPress = false
         this.startTask()
       }, 500)
     },
     handleTouchEnd () {
+      this.progress = false
       clearTimeout(this.timer)
     },
     startTask () {
       startTaskApi({
         task_id: this.tid
-      }).then(res => {
-        if (res && res.return_code !== 0) {
-          alert(res.msg)
-        }
       })
+      // .then(res => {
+      //   if (res && res.return_code !== 0) {
+      //     alert(res.msg)
+      //   }
+      // })
     }
   },
 
   mounted () {},
-  beforeMount () {
-    this.timer = null
+  beforeDestroy () {
     clearTimeout(this.timer)
+    this.timer = null
   }
 }
 </script>
@@ -111,7 +128,7 @@ export default {
   opacity 0
   transform scale(0)
 .show-scale-enter-active, .show-scale-leave-active
-  transition opacity 20s , transform 20s
+  transition opacity 20s, transform 20s
 .show-scale-enter, .show-scale-leave-to
   opacity 0
   transform scale(0)

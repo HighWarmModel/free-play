@@ -34,7 +34,6 @@ import freeReceiveTip from '@a/img/free_receive_tip.png'
 import EmptyReward from '@c/empty-reward'
 import RewardPopup from '@c/reward-popup'
 import { mapState } from 'vuex'
-import { setTimeout } from 'timers'
 export default {
   name: 'free_catch',
 
@@ -96,7 +95,7 @@ export default {
     margin-top rems(40)
     margin-left rems(30)
     .free-catch-tip-img
-      width rems(653)
+      width rems(635)
       height rems(125)
     .free-catch-tip-btn
       position absolute
@@ -106,4 +105,6 @@ export default {
     padding 0 rems(30)
   .free-catch-bottom
     position relative
+  .free-catch-code
+    flex 1
 </style>

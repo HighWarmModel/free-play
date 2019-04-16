@@ -13,6 +13,17 @@ function getQueryStringTool () {
   })
   return queryObj
 }
+/**
+ * 延迟执行
+ * @param {number} delay 延迟时间
+ * @return {Promise}
+ */
+function delayedExecutionTool (delay) {
+  return new Promise(resolve => {
+    setTimeout(() => resolve(), delay)
+  })
+}
 export {
-  getQueryStringTool
+  getQueryStringTool,
+  delayedExecutionTool
 }

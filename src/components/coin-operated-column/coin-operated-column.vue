@@ -7,7 +7,7 @@
     </div>
     <div class="flex-column flex-between-start">
       <span class="color-4e0b21 size-24">{{machineInfo.name + machineInfo.no}}</span>
-      <span class="color-baacaf size-28">当前设备编号</span>
+      <span class="color-baacaf size-28">{{content}}</span>
     </div>
     <div style="font-size:0;">
       <img @click="handleScan" class="coin-operated-column-scanimg" :src="scan">
@@ -36,7 +36,10 @@ export default {
     ...mapState({
       coinBalance: state => state.user.coinBalance,
       machineInfo: state => state.app.machineInfo
-    })
+    }),
+    content () {
+      return this.machineInfo.name ? '当前设备编号' : '扫码选择机台'
+    }
   },
   components: {
     ColorfulButton
@@ -69,7 +72,7 @@ export default {
         }
         // 上币
         this.USER_COINPLAY_ACTION().then(res => {
-          if (res && res.code === 0) {
+          if (res && res.return_code === 0) {
             alert('上币成功！')
           } else if (res) {
             alert(res.msg)
@@ -98,5 +101,5 @@ export default {
     margin-left rems(20)
   .coin-operated-column-scanimg
     width rems(77)
-    height rems(70)
+    height rems(95)
 </style>
