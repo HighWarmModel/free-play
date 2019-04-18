@@ -2,7 +2,7 @@
 <template>
   <div class="distinguish-code">
     <div class="distinguish-code-progress">
-      <ImgCricleProgress :show="true" />
+      <ImgCricleProgress :show="progress" />
     </div>
     <transition name="fade-scale">
       <template v-if="notPress.hide">
@@ -10,6 +10,7 @@
           class="distinguish-code-btn"
           :src="longPressBtn"
           @touchstart.prevent="handleTouchStart"
+          @touchmove.prevent="handleTouchMove"
           @touchend="handleTouchEnd"
         >
       </template>
@@ -30,8 +31,8 @@
 
 <script>
 import { startTaskApi } from '@/api'
-import longPressBtn from '@a/img/long_press_btn.png'
-import ImgCricleProgress from '@c/img-cricle-progress/img-cricle-progress'
+import { longPressBtn } from '@/lib/img'
+import ImgCricleProgress from '@c/img-cricle-progress'
 // import code from '@a/img/1555130384.png'
 export default {
   name: 'distinguish_code',
@@ -60,19 +61,26 @@ export default {
 
   methods: {
     handleTouchStart () {
+      // 二维码隐藏的（显示按钮状态）
       if (this.notPress.hide) {
+        // 触发进度条
         this.progress = true
       }
       clearTimeout(this.timer)
+      // 一定时间之后显示二维码
       this.timer = setTimeout(() => {
         this.timer = null
         this.$emit('trigger-hide', {
           ...this.notPress,
           hide: false
         })
-        // this.notPress = false
-        this.startTask()
+        this.progress = false
+        this.startTask() // 开始任务
       }, 500)
+    },
+    handleTouchMove () {
+      this.progress = false
+      clearTimeout(this.timer)
     },
     handleTouchEnd () {
       this.progress = false

@@ -6,7 +6,7 @@ export default {
     userId: '',
     userName: '',
     userHeadImage: '',
-    coinBalance: 0
+    coinBalance: '0'
   },
   mutations: {
     // 设置用户头像
@@ -56,8 +56,7 @@ export default {
     // 登出去除相关信息
     async USER_LOGOUT_ACTION ({ state, commit }) {
       commit('USER_SETTOKEN_MUTATE')
-      console.log('退出了')
-      // location.href = `${location.origin}/wxxcx/index.php/Home`
+      location.href = `${location.origin}/wxxcx/index.php/Home` // 授权登陆页
       return true
     }
   }

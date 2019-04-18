@@ -6,9 +6,11 @@
 </template>
 
 <script>
-import receiveTutorialBtn from '@a/img/receive_tutorial_btn.png' // 领取教程按钮
-import knowBtn from '@a/img/know_btn.png' // 知道了按钮
-import coinOperatedBtn from '@a/img/coin_operated_btn.png' // 投币按钮
+import {
+  receiveTutorialBtn, // 领取教程按钮
+  knowBtn, // 知道了按钮
+  coinOperatedBtn // 投币按钮
+} from '@/lib/img'
 const btnObj = {
   'receive-tutorial-btn': receiveTutorialBtn, 'know-btn': knowBtn, 'coin-operated-btn': coinOperatedBtn
 }

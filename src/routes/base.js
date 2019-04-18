@@ -1,6 +1,7 @@
 
 const FreeCatch = () => import(/* webpackChunkName: "free-catch" */ '@v/free-catch/free-catch.vue')
 const ReceivingTutorial = () => import(/* webpackChunkName: "receiving-tutorial" */ '@v/receiving-tutorial/receiving-tutorial.vue')
+const FocusNumber = () => import(/* webpackChunkName: "receiving-tutorial" */ '@v/focus-number/focus-number.vue')
 export default [
   {
     path: '/free-catch',
@@ -9,6 +10,14 @@ export default [
     component: FreeCatch,
     meta: {
       title: '嗨皮免费玩'
+    }
+  },
+  {
+    path: '/focus-number',
+    name: 'focus_number',
+    component: FocusNumber,
+    meta: {
+      title: '关注公众号'
     }
   },
   {

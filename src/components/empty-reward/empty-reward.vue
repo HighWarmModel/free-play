@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import noReward from '@a/img/no_reward.png'
+import { noReward } from '@/lib/img'
 export default {
   name: 'empty_reward',
 

@@ -20,8 +20,7 @@
 
 <script>
 import ColorfulButton from '@c/colorful-button'
-import coin from '@a/img/coin.png'
-import scan from '@a/img/scan.png'
+import { coin, scan } from '@/lib/img'
 import { mapState, mapActions } from 'vuex'
 export default {
   name: 'coin_operated_column',

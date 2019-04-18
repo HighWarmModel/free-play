@@ -49,13 +49,13 @@ export default {
         commit('APP_GETTASKLIST_MUTATE', res.data)
       }
     },
-    // 结束任务
+    // 结束任务 (查询任务状态)
     async APP_ENDTASK_ACTION ({ commit, dispatch, state }, { tid }) {
       let res = await endTaskApi({
         task_id: tid
       })
       if (res && res.return_code === 0) {
-        state.getAnimateCoin = res.data.coin
+        state.getAnimateCoin = res.data.coin - 0
       }
       await dispatch('APP_TASKLIT_ACTION')
       return res

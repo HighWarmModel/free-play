@@ -33,7 +33,7 @@ import { mapState, mapActions } from 'vuex'
 import ColorfulButton from '@c/colorful-button'
 import Carousel from '@c/carousel'
 import CoinOperatedColumn from '@c/coin-operated-column'
-import freeReceiveTip from '@a/img/free_receive_tip.png'
+import { freeReceiveTip } from '@/lib/img'
 import EmptyReward from '@c/empty-reward'
 import RewardPopup from '@c/reward-popup'
 export default {
@@ -67,7 +67,7 @@ export default {
         this.animate = true
         this.timer = setTimeout(() => {
           this.animate = false
-        }, 2000)
+        }, 5000)
       }
     }
   },

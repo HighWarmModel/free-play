@@ -1,7 +1,7 @@
 <!-- 领取步骤 -->
 <template>
   <div class="receiving-tutorial">
-    <div class="receiving-tutorial-container flex-column flex-between-center">
+    <div class="receiving-tutorial-container flex-column flex-around-center">
       <img class="receiving-tutorial-banner" :src="preferentialStepBanner">
       <img class="receiving-tutorial-course" :src="course">
         <ColorfulButton @trigger-click="handleClick" src="know-btn" />
@@ -11,8 +11,7 @@
 
 <script>
 import ColorfulButton from '@c/colorful-button'
-import preferentialStepBanner from '@a/img/preferential_step_banner.png'
-import course from '@a/img/course.png'
+import { preferentialStepBanner, course } from '@/lib/img'
 export default {
   name: 'receiving_tutorial',
 
@@ -55,7 +54,6 @@ export default {
     .receiving-tutorial-banner
       width rems(339)
       height rems(41)
-      margin-top rems(35)
     .receiving-tutorial-course
       width rems(530)
       height rems(850)

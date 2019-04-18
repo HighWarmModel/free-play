@@ -96,7 +96,6 @@ export default {
     }
   },
   created () {
-    // console.log(this.swiperData.push({}))
   },
   mounted () {
 

@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import coin from '@a/img/coin.png'
+import { coin } from '@/lib/img'
 export default {
   name: 'reward_popup',
   props: {
@@ -44,6 +44,7 @@ export default {
 <style lang="stylus" scoped>
 .reward-popup
   position relative
+  z-index 99
   .reward-popup-content
     position absolute
     top rems(-90)
@@ -57,9 +58,11 @@ export default {
       height rems(42)
     .reward-popup-content-text
       margin-left rems(12)
-  .float-enter-active, .float-scale-leave-active
+  .float-enter-active, .float-leave-active
     transition opacity 0.7s , transform 0.7s
-  .float-enter, .float-leave-to
+  .float-enter
     opacity 0
     transform 'translateY(%s)' % rems(100)
+  .float-leave-to
+    opacity 0
 </style>
