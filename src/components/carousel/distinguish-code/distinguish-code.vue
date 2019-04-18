@@ -1,7 +1,9 @@
 <!-- 识别二维码 -->
 <template>
   <div class="distinguish-code">
-    <CircleProgress :show="progress" />
+    <div class="distinguish-code-progress">
+      <ImgCricleProgress :show="true" />
+    </div>
     <transition name="fade-scale">
       <template v-if="notPress.hide">
         <img
@@ -28,8 +30,8 @@
 
 <script>
 import { startTaskApi } from '@/api'
-import CircleProgress from '@hhf/circle-progress'
 import longPressBtn from '@a/img/long_press_btn.png'
+import ImgCricleProgress from '@c/img-cricle-progress/img-cricle-progress'
 // import code from '@a/img/1555130384.png'
 export default {
   name: 'distinguish_code',
@@ -51,7 +53,7 @@ export default {
   },
 
   components: {
-    CircleProgress
+    ImgCricleProgress
   },
 
   computed: {},
@@ -59,7 +61,6 @@ export default {
   methods: {
     handleTouchStart () {
       if (this.notPress.hide) {
-        console.log(123)
         this.progress = true
       }
       clearTimeout(this.timer)
@@ -100,12 +101,18 @@ export default {
 .distinguish-code
   position relative
   font-size 0
-  width rems(400)
+  width rems(370)
   height @width
+  .distinguish-code-progress
+    position absolute
+    top 0
+    left 0
+    width 100%
+    height 100%
   .distinguish-code-btn
     position absolute
     width rems(344)
-    height rems(345)
+    height rems(344)
     top 0
     left 0
     right 0
@@ -120,16 +127,4 @@ export default {
     right 0
     bottom 0
     margin auto
-.fade-scale-enter-active
-  transition opacity 0.2s, transform 0.2s
-.fade-scale-leave-active
-  transition opacity 0.2s, transform 0.2s
-.fade-scale-enter, .fade-scale-leave-to
-  opacity 0
-  transform scale(0)
-.show-scale-enter-active, .show-scale-leave-active
-  transition opacity 20s, transform 20s
-.show-scale-enter, .show-scale-leave-to
-  opacity 0
-  transform scale(0)
 </style>

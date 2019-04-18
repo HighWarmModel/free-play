@@ -4,6 +4,7 @@ import router from './routes'
 import store from './store'
 import 'swiper/dist/css/swiper.css'
 import '@a/css/common.styl'
+import '@a/css/animate.styl'
 
 Vue.config.productionTip = false
 

@@ -5,12 +5,19 @@ export default [
   {
     path: '/free-catch',
     alias: '/',
-    component: FreeCatch
+    name: 'home',
+    component: FreeCatch,
+    meta: {
+      title: '嗨皮免费玩'
+    }
   },
   {
     path: '/free-catch',
     name: 'free_catch',
-    component: FreeCatch
+    component: FreeCatch,
+    meta: {
+      title: '嗨皮免费玩'
+    }
   },
   {
     path: '/receiving-tutorial',
@@ -18,6 +25,9 @@ export default [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: ReceivingTutorial
+    component: ReceivingTutorial,
+    meta: {
+      title: '领取教程'
+    }
   }
 ]

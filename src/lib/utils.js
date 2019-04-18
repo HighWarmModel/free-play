@@ -28,7 +28,7 @@ function removeToken () {
  * @param {string|void} pageTitle 页面title
  */
 function setTitle (pageTitle) {
-  window.document.title = pageTitle ? `${title} - ${pageTitle}` : title
+  window.document.title = pageTitle || title
 }
 /**
  * 判断是否有属性children

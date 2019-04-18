@@ -6,7 +6,7 @@ export default {
   /**
    * @description Cookie中储存的键名
    */
-  cookieTokenName: 'token',
+  cookieTokenName: 'free-play-token',
   /**
    * @description token在Cookie中存储的天数，默认1天
    */

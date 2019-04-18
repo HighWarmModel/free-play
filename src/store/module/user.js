@@ -56,6 +56,7 @@ export default {
     // 登出去除相关信息
     async USER_LOGOUT_ACTION ({ state, commit }) {
       commit('USER_SETTOKEN_MUTATE')
+      console.log('退出了')
       // location.href = `${location.origin}/wxxcx/index.php/Home`
       return true
     }
