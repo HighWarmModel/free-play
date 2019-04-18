@@ -10,7 +10,7 @@
         <div class="img-cricle-progress-wrap">
           <img
             class="img-cricle-progress-content img-cricle-progress-left"
-            :src="cricleProgress"
+            :src="cricleProgressLeft"
           />
         </div>
       </template>
@@ -24,7 +24,7 @@
         <div class="img-cricle-progress-wrap">
           <img
             class="img-cricle-progress-content img-cricle-progress-right"
-            :src="cricleProgress"
+            :src="cricleProgressRight"
           />
         </div>
       </template>
@@ -33,7 +33,8 @@
 </template>
 
 <script>
-import cricleProgress from '@a/img/cricle-progress.png'
+import cricleProgressLeft from '@a/img/cricle-progress-left.png'
+import cricleProgressRight from '@a/img/cricle-progress-right.png'
 export default {
   name: 'img_cricle_progress',
   props: {
@@ -52,7 +53,8 @@ export default {
   },
   data () {
     return {
-      cricleProgress: cricleProgress
+      cricleProgressLeft: cricleProgressLeft,
+      cricleProgressRight: cricleProgressRight
     }
   },
 
