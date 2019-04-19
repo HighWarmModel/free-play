@@ -25,7 +25,7 @@ let { freePlayCode,
   cricleProgressLeft,
   cricleProgressRight
 } = {}
-if (process.env.NODE_ENV === 'product') {
+if (process.env.NODE_ENV === 'production') {
   freePlayCode = 'http://stat.i3020.com/free-play/src/assets/img/free-play-code.jpg'
   freeReceiveTip = 'http://stat.i3020.com/free-play/src/assets/img/free_receive_tip.png'
   preferentialStepBanner = 'http://stat.i3020.com/free-play/src/assets/img/preferential_step_banner.png'

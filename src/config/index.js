@@ -21,7 +21,7 @@ export default {
    * @description api请求基础路径
    */
   baseUrl: {
-    dev: 'http://dev.hahaipi.com/wxxcx/index.php', // /wxxcx/index.php/
+    dev: '/wxxcx/index.php/', // 'http://dev.hahaipi.com/wxxcx/index.php',
     pro: ''
   },
   /**
