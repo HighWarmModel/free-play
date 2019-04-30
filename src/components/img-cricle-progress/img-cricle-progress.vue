@@ -63,7 +63,8 @@ export default {
       cricleProgressRight: cricleProgressRight
     }
   },
-
+  watch: {
+  },
   components: {},
 
   computed: {},

@@ -15,9 +15,10 @@ function endTaskApi (data) {
   })
 }
 // 任务列表
-function taskListApi () {
+function taskListApi (data) {
   return HttpReq.formPost({
-    url: 'Home/getTaskList'
+    url: 'Home/getTaskList',
+    data
   })
 }
 // 获取机台信息
@@ -38,7 +39,8 @@ function coinPlayApi (data) {
 function getWxSignInfoApi (data) {
   return HttpReq.formPost({
     url: 'Home/getSign ',
-    data
+    data,
+    notLogin: true
   })
 }
 export {

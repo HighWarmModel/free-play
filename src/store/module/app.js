@@ -9,7 +9,8 @@ export default {
       no: '',
       id: ''
     },
-    getAnimateCoin: 0
+    getAnimateCoin: 0, // 动画推送币
+    show: false
   },
   mutations: {
     // 添加设备信息
@@ -23,15 +24,22 @@ export default {
     // 错误日志列表添加
     APP_ADDERRORLOG_MUTATE (state, error) {
       state.errorList.unshift(error)
+    },
+    // 推送币
+    APP_ADDANIMTATECOIN_MUTATE (state, taskCoin) {
+      state.getAnimateCoin = taskCoin
+    },
+    // 展示
+    APP_OPERAPOPUP_MUTATE (state, show) {
+      state.show = show
     }
   },
   actions: {
     // 上币
     async USER_COINPLAY_ACTION ({ commit, state, rootState }) {
       let res = await coinPlayApi({ mid: state.machineInfo.id })
-      if (res && res.return_code === 0) {
-        alert('上币成功！')
-        commit('USER_SETCOINBALANCE_MUTATE', rootState.user.coinBalance - state.machineInfo.coins_sell)
+      if (res && (res.return_code === 0 || res.return_code === -100)) {
+        commit('USER_SETCOINBALANCE_MUTATE', res.data.coin)
       }
       return res
     },
@@ -41,23 +49,26 @@ export default {
       if (res && res.return_code === 0) {
         commit('APP_ADDMACHINE_MUTATE', res.data)
       }
+      return res
     },
     // 任务列表
-    async APP_TASKLIT_ACTION ({ commit }) {
-      let res = await taskListApi()
+    async APP_TASKLIT_ACTION ({ commit, rootState }) {
+      const { latitude, longitude } = rootState.user
+      let res = await taskListApi({ lat: latitude, lng: longitude })
       if (res && res.return_code === 0) {
         commit('APP_GETTASKLIST_MUTATE', res.data)
       }
+      return res
     },
     // 结束任务 (查询任务状态)
-    async APP_ENDTASK_ACTION ({ commit, dispatch, state }, { tid }) {
+    async APP_ENDTASK_ACTION ({ commit }, { tid }) {
       let res = await endTaskApi({
         task_id: tid
       })
       if (res && res.return_code === 0) {
-        state.getAnimateCoin = res.data.coin - 0
+        commit('APP_ADDANIMTATECOIN_MUTATE', res.data.task_coin)
+        commit('USER_SETCOINBALANCE_MUTATE', res.data.coin)
       }
-      await dispatch('APP_TASKLIT_ACTION')
       return res
     },
     // 添加错误日志

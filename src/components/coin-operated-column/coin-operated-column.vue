@@ -13,7 +13,7 @@
       <img @click="handleScan" class="coin-operated-column-scanimg" :src="scan">
     </div>
     <div class="flex-row flex-center">
-      <ColorfulButton @trigger-click="handleClick" src="coin-operated-btn" />
+      <ColorfulButton :loading="loading" @trigger-click="handleClick" src="coin-operated-btn" />
     </div>
   </div>
 </template>
@@ -28,7 +28,8 @@ export default {
   data () {
     return {
       coin: coin,
-      scan: scan
+      scan: scan,
+      loading: false
     }
   },
   computed: {
@@ -47,6 +48,7 @@ export default {
   methods: {
     ...mapActions(['APP_ADDMACHINE_ACTION', 'USER_COINPLAY_ACTION']),
     handleScan () {
+      let $this = this
       /* global wx */
       wx.scanQRCode({
         needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
@@ -55,7 +57,7 @@ export default {
           const result = res.resultStr // 当needResult 为 1 时，扫码返回的结果
           const mid = result.split('=')[1]
           if (mid) {
-            this.APP_ADDMACHINE_ACTION({ mid })
+            $this.APP_ADDMACHINE_ACTION({ mid })
           } else {
             alert('二维码不正确！')
           }
@@ -65,12 +67,14 @@ export default {
     handleClick () {
       if (this.machineInfo.no) {
         // 游玩价格大于余币
-        if (this.machineInfo.coins_sell - 0 > this.coinBalance - 0) {
-          alert('余币不足，不能游玩！')
-          return
-        }
+        // if (this.machineInfo.coins_sell - 0 > this.coinBalance - 0) {
+        //   alert('余币不足，不能游玩！')
+        //   return
+        // }
         // 上币
+        this.loading = true
         this.USER_COINPLAY_ACTION().then(res => {
+          this.loading = false
           if (res && res.return_code === 0) {
             alert('上币成功！')
           } else if (res) {

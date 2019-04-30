@@ -62,6 +62,8 @@ module.exports = {
   productionSourceMap: false,
   // http://dev.hahaipi.com/wxxcx/index.php/Home/getMachineInfo
   devServer: {
+    host: '100.100.100.23',
+    port: 8080,
     proxy: 'http://dev.hahaipi.com'
     // proxy: {
     //   '/Home': {

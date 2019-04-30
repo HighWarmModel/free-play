@@ -6,41 +6,50 @@
     <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport" />
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title>嗨皮免费玩 领取教程</title>
+    <!-- 用作手机端调试 -->
+    <!-- <script src="https://cdn.bootcss.com/vConsole/3.3.0/vconsole.min.js"></script> -->
     <script>
+      // var vConsole = new VConsole();
       (function () {
-        function changeScreenControlRemFunc (options, callback) {
-          let { timer, later, context, args } = {}
-          const time = options.time || 100
-          const html = document.documentElement || document.querySelector('html')
-          later = function () {
-           return setTimeout(function () {
-              timer = null
-              // 业务逻辑
-            let clinetWidth = document.documentElement.clientWidth || document.body.clientWidth
-            // let clinetHeight = document.documentElement.clientHeight || document.body.clientHeight
-            clinetWidth = clinetWidth > 750 ? 750 : clinetWidth
-            html.style.fontSize = clinetWidth / 7.5 + 'px'
-            }, time)
-          }
-          return function () {
-            context = this
-            args = arguments
-              clearTimeout(timer)
-              timer = later.apply(context, args)
-          }
+        function changeScreenBusiness () {
+         var html = document.documentElement || document.querySelector('html')
+         var clinetWidth = document.documentElement.clientWidth || document.body.clientWidth
+                // let clinetHeight = document.documentElement.clientHeight || document.body.clientHeight
+                clinetWidth = clinetWidth > 750 ? 750 : clinetWidth
+                html.style.fontSize = clinetWidth / 7.5 + 'px'
         }
-        // window.onresize = changeScreenControlRemFunc({time: 200})
-        // window.onresize()
-       changeScreenControlRemFunc({time: 200})()
-      })()
+            function changeScreenControlRemFunc (options, callback) {
+              let { timer, later, context, args } = {}
+              const time = options.time || 100
+              const html = document.documentElement || document.querySelector('html')
+              later = function () {
+               return setTimeout(function () {
+                  timer = null
+                  // 业务逻辑
+                let clinetWidth = document.documentElement.clientWidth || document.body.clientWidth
+                // let clinetHeight = document.documentElement.clientHeight || document.body.clientHeight
+                clinetWidth = clinetWidth > 750 ? 750 : clinetWidth
+                html.style.fontSize = clinetWidth / 7.5 + 'px'
+                }, time)
+              }
+              return function () {
+                context = this
+                args = arguments
+                  clearTimeout(timer)
+                  timer = later.apply(context, args)
+              }
+            }
+            // window.onresize = changeScreenControlRemFunc({time: 200})
+            // window.onresize()
+            changeScreenBusiness()
+          })()
     </script>
     <script src="https://res2.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
   </head>
-  <body>
-    <noscript>
-      <strong>We're sorry but free-play doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
+  <body ontouchstart="">
     <div id="app"></div>
     <!-- built files will be auto injected -->
+    <!-- <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <script src="https://cdn.bootcss.com/jquery.qrcode/1.0/jquery.qrcode.min.js"></script> -->
   </body>
 </html>

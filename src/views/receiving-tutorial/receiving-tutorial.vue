@@ -1,9 +1,10 @@
 <!-- 领取步骤 -->
 <template>
-  <div class="receiving-tutorial">
+  <div class="receiving-tutorial flex-column flex-start-stretch">
     <div class="receiving-tutorial-container flex-column flex-around-center">
-      <img class="receiving-tutorial-banner" :src="preferentialStepBanner">
       <img class="receiving-tutorial-course" :src="course">
+    </div>
+    <div class="text-center receiving-tutorial-btn">
         <ColorfulButton @trigger-click="handleClick" src="know-btn" />
     </div>
   </div>
@@ -34,27 +35,26 @@ export default {
     }
   },
 
-  mounted () {}
+  mounted () {
+
+  }
 }
 </script>
 <style lang="stylus" scoped>
 .receiving-tutorial
   position relative
-  display flex
-  align-items stretch
   width 100vw
   min-height 100vh
   background-color #fff0e9
   box-sizing border-box
   padding rems(18) rems(30)
+  .receiving-tutorial-btn
+    padding-top rems(18)
   .receiving-tutorial-container
-    width 100%
+    padding rems(20) rems(10)
     background-color #ffffff
     border-radius rems(20)
-    .receiving-tutorial-banner
-      width rems(339)
-      height rems(41)
     .receiving-tutorial-course
-      width rems(530)
-      height rems(850)
+      width rems(509)
+      height rems(1701)
 </style>

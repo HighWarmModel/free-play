@@ -6,7 +6,9 @@ export default {
     userId: '',
     userName: '',
     userHeadImage: '',
-    coinBalance: '0'
+    coinBalance: '0',
+    latitude: 0, // 维度
+    longitude: 0 // 经度
   },
   mutations: {
     // 设置用户头像
@@ -33,6 +35,11 @@ export default {
       } else {
         removeToken()
       }
+    },
+    // 设置经纬度
+    USER_SETCOORDINATE_MUTATE (state, { latitude, longitude }) {
+      state.latitude = latitude
+      state.longitude = longitude
     }
   },
   actions: {
@@ -46,17 +53,18 @@ export default {
       return res
     },
     // 登录
-    async USER_LOGIN_ACTION ({ commit, dispatch }, { token }) {
+    async USER_LOGIN_ACTION ({ commit, dispatch }, { token, latitude, longitude }) {
       if (token) {
         commit('USER_SETTOKEN_MUTATE', token)
       }
+      commit('USER_SETCOORDINATE_MUTATE', { latitude, longitude })
       let res = await dispatch('USER_GETUSERINFO_ACTION')
       return res
     },
     // 登出去除相关信息
     async USER_LOGOUT_ACTION ({ state, commit }) {
       commit('USER_SETTOKEN_MUTATE')
-      // location.href = `${location.origin}/wxxcx/index.php/Home` // 授权登陆页
+      location.href = location.origin.indexOf('https') !== -1 ? `${location.origin}/index.php/Home` : `${location.origin}/wxxcx/index.php/Home`// 授权登陆页
       return true
     }
   }

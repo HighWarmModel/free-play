@@ -12,13 +12,28 @@
           v-for="(items, index) in currentData"
           :key="index"
         >
-          <div class="carousel-content flex-row flex-center">
-            <DistinguishCode
-              :not-press="items"
-              @trigger-hide="handleHide"
-              :tid="items.id - 0"
-              :src="items.url"
-            />
+          <div class="carousel-content flex-column flex-between-center">
+            <div v-if="items.type === '0'" class="size-30 flex-column flex-center carousel-number-1">
+              <span class="color-573333">长按识别二维码</span>
+              <span class="color-573333 flex-row flex-center">关注公众号，回复<img class="replay-nine" :src="nineNine"/></span>
+            </div>
+            <div v-else class="size-30 flex-column flex-center carousel-number-2">
+              <span class="color-573333">长按<span class="color-ff5554">游玩</span>小游戏</span>
+              <span class="color-573333">游戏内点击广告【领取奖励】</span>
+              <span class="color-573333">奖励更丰富！</span>
+            </div>
+            <div class="carousel-center">
+              <DistinguishCode
+                :not-press="items"
+                @trigger-hide="handleHide"
+                :tid="items.id"
+                :src="items.url"
+                @trigger-end="handleTimer"
+              />
+            </div>
+            <div class="size-30 flex-column flex-center carousel-number-bottom">
+              <span class="color-573333 size-30"><span class="color-ff5554">返回 免费嗨抓</span>获得游戏币</span>
+            </div>
           </div>
         </swiper-slide>
       </swiper>
@@ -31,8 +46,10 @@
 </template>
 <script>
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
-import { mapState } from 'vuex'
 import DistinguishCode from './distinguish-code'
+import { nineNine } from '@/lib/img'
+import { mapState, mapActions } from 'vuex'
+import { setInterval } from 'timers'
 export default {
   name: 'carousel',
   props: {
@@ -54,7 +71,13 @@ export default {
           bulletActiveClass: 'carousel-bullet-active'
         }
       },
-      currentData: []
+      currentData: [],
+      nineNine: nineNine,
+      endTimer: null, // 结束任务计时器
+      times: 0, // 当前次数
+      maxTimes: 12, // 最大次数
+      numberMilliseconds: 10000, // 每次调用时间（毫秒）
+      newTid: 0 // 结束任务当前id
     }
   },
 
@@ -80,6 +103,30 @@ export default {
   },
 
   methods: {
+    ...mapActions(['APP_ENDTASK_ACTION', 'APP_TASKLIT_ACTION']),
+    handleTimer ({ tid, action }) { // 结束任务状态查询
+      clearInterval(this.endTimer)
+      this.endTimer = null
+      if (action === 'start') { // 开始
+        this.endTimer = setInterval(() => {
+          if (this.times > this.maxTimes) {
+            clearInterval(this.endTimer)
+            this.endTimer = null
+            return
+          }
+          this.APP_ENDTASK_ACTION({ tid }).then(res => {
+            if (res && res.return_code === 0) {
+              clearInterval(this.endTimer)
+              this.endTimer = null
+              this.APP_TASKLIT_ACTION()
+            }
+          })
+        }, this.numberMilliseconds)
+      } else if (action === 'close') {
+        clearInterval(this.endTimer)
+        this.endTimer = null
+      }
+    },
     handleSildeChange () {
       this.currentData = this.currentData.map(v => {
         return { ...v, hide: true }
@@ -99,6 +146,10 @@ export default {
   },
   mounted () {
 
+  },
+  beforeDestroy () {
+    clearInterval(this.endTimer)
+    this.endTimer = null
   }
 }
 </script>
@@ -115,9 +166,25 @@ export default {
     height 100%
     background-color #fff0e9
     border-radius rems(26)
+  .replay-nine
+    width rems(80)
+    margin-left rems(10)
+    height rems(38)
   .carousel-content
+    position relative
     width 100%
     height 100%
+    .carousel-center
+      position absolute
+      top 50%
+      left 50%
+      transform translate(-50%,-50%)
+    .carousel-number-1
+      padding-top rems(45)
+    .carousel-number-2
+      padding-top rems(20)
+    .carousel-number-bottom
+      padding-bottom rems(100)
   .carousel-swiper-pagination
     position relative
     font-size 0

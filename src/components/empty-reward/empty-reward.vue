@@ -29,7 +29,8 @@ export default {
 <style lang="stylus" scoped>
 .empty-reward
   width 100%
-  height rems(737)
+  // height rems(737)
+  height 100%
   background-color #fff0e9
   border-radius rems(26)
   font-size 0

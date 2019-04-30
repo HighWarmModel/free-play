@@ -1,18 +1,19 @@
 <!-- 彩色按钮 -->
 <template>
-  <div class="colorful-button">
-    <img :class="src" @click="handleClick" :src="btnSrc">
-  </div>
+  <a class="colorful-button">
+    <img :class="[src, 'colorful-button-content', loading ? 'colorful-button-loading' : null]" @click="handleClick" :src="btnSrc">
+  </a>
 </template>
 
 <script>
 import {
   receiveTutorialBtn, // 领取教程按钮
   knowBtn, // 知道了按钮
-  coinOperatedBtn // 投币按钮
+  coinOperatedBtn, // 投币按钮
+  robCoinBtn // 教你抢币
 } from '@/lib/img'
 const btnObj = {
-  'receive-tutorial-btn': receiveTutorialBtn, 'know-btn': knowBtn, 'coin-operated-btn': coinOperatedBtn
+  'receive-tutorial-btn': receiveTutorialBtn, 'know-btn': knowBtn, 'coin-operated-btn': coinOperatedBtn, 'rob-coin-btn': robCoinBtn
 }
 export default {
   name: '',
@@ -20,8 +21,12 @@ export default {
     src: {
       validator: function (value) {
         // 这个值必须匹配下列字符串中的一个
-        return ['receive-tutorial-btn', 'know-btn', 'coin-operated-btn'].indexOf(value) !== -1
+        return ['receive-tutorial-btn', 'know-btn', 'coin-operated-btn', 'rob-coin-btn'].indexOf(value) !== -1
       }
+    },
+    loading: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
@@ -39,7 +44,9 @@ export default {
 
   methods: {
     handleClick () {
-      this.$emit('trigger-click')
+      if (!this.loading) {
+        this.$emit('trigger-click')
+      }
     }
   },
 
@@ -47,25 +54,32 @@ export default {
 }
 </script>
 <style lang="stylus" scoped>
+scaleBtn()
+  &::active
+      transform scale(0.9)
 .colorful-button
   display inline-block
   font-size 0
-  .receive-tutorial-btn
+  .colorful-button-content
     transition transform 0.1s ease-in-out
+    .colorful-button-loading
+      opacity 0.5
+      &::active
+        transform scale(1)
+  .receive-tutorial-btn
     width rems(170)
     height rems(50)
-    &:active
-      transform scale(0.9)
+    scaleBtn()
   .know-btn
-    transition transform 0.1s ease-in-out
     width rems(320)
     height rems(80)
-    &:active
-      transform scale(0.9)
+    scaleBtn()
   .coin-operated-btn
-    transition transform 0.1s ease-in-out
     width rems(200)
     height rems(96)
-    &:active
-      transform scale(0.9)
+    scaleBtn()
+  .rob-coin-btn
+    width rems(170)
+    height rems(50)
+    scaleBtn()
 </style>
