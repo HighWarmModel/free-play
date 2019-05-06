@@ -90,7 +90,18 @@ export default {
     swiperData: {
       handler (val) {
         this.currentData = val.map(v => {
-          return { ...v, hide: true }
+          let codeImg = v.url
+          if (v.type === '1') {
+            const div = document.createElement('div')
+            $(div).qrcode({
+              text: v.url, // 需要转化二维码的url
+              width: 200,
+              height: 200
+            })
+            const src = div.querySelector('canvas').toDataURL('image/png')
+            codeImg = src
+          }
+          return { ...v, hide: true, codeImg }
         })
       },
       immediate: true

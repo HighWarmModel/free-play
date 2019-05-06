@@ -1,11 +1,9 @@
-import config from '@/config'
-const { plugins } = config
-export default {
-  install (Vue, options) {
-    for (let key in plugins) {
-      if (plugins.isOff) {
-        Vue.prototype[`$${key}`] = require(`./${key}`).default
-      }
-    }
-  }
+import Tip from './tip'
+import Confirm from './confirm'
+import './css/common.styl'
+import './css/iconfont.css'
+const install = (Vue, options = {}) => {
+  Vue.prototype.$Tip = Tip
+  Vue.prototype.$Confirm = Confirm
 }
+export default install

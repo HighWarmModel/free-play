@@ -63,6 +63,7 @@ export default {
     },
     // 登出去除相关信息
     async USER_LOGOUT_ACTION ({ state, commit }) {
+      console.log(state.token)
       commit('USER_SETTOKEN_MUTATE')
       location.href = location.origin.indexOf('https') !== -1 ? `${location.origin}/index.php/Home` : `${location.origin}/wxxcx/index.php/Home`// 授权登陆页
       return true

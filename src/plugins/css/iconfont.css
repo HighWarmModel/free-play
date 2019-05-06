@@ -1,0 +1,32 @@
+@font-face {font-family: "other-iconfont";
+  src: url('iconfont.eot?t=1557125126157'); /* IE9 */
+  src: url('iconfont.eot?t=1557125126157#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAARMAAsAAAAACTQAAAP+AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCDMgqFDIQYATYCJAMUCwwABCAFhTUHRxvrB1GUDkqH7IckyUMnP82MvamARgaCAFAAAIACAAARPO2Xztvdo70LoEJUUZFhHRaGFJSEqa1qpawR6AGN+P87lxmBkJR3teVzQ1YIudxPy+n7/Ud6Y+Hn9IRmoTc5tSG9fKGwRkhBjVm4tE6mShOoFcx/AUza2v85lnqZdlqfDkAiiyPb5tUaZRFtBTTQeD7QifEesLshN4D7CVRzTF3Hazv7bFChHxaIxygQbDBhVkqYoatrI+cW8QFTN71LW3jvfX/8txscklamH3v2sFpnC79kH0czaIBIB0HSnxPsRWTsYArxGnU/6glCO3pUOdBrH1MCXUnqa6vAx5jH0eYfkK9IW41/eBQhS0Sbrh6Q2P1w4ZesJY40gWAUoIkBowyaUQhLOC8vFZZ+pIjJnt2k3f4beTA8mHIeHRNhjebmk/eQ4AE+ekKFj2HkMSQUeqNw2xk6JkCvDzX1znbLNrRQQLNMfRfeM9BKxdqiumR0Ytvx8JmBASq1qU0etfLlmprksUY5Hp5/El7PU++d1W+alSem+/sprY6hQKC+uVkGNDR084nevBFN/O5fHNkPlnAjBOrDVzBjFBnAVglDGB0kloEBFCd8RCoIq12fvA8fPEPIE3h2FVvBl8CyBj2LZCopMW2FgGGRDEERgoKEV7DrDFZ+FLVM9QhtyNzNSO7stjiDOzKlGTUUjQyOmRoaTFAcgxDk0af4mz/5DDz7OBmUERu6eLnU+9wYkhYfWk/M/Xo93JdWxZdUpTW4zlzdYi8JBsePI1bgqsGk1nOnGdO6Yjr3ctcqxKZY6TVCuHrF3CiaI0OssFlTjClZxiNEAxJOGAbGiSEAoS2PdtSB7DKqqlo5PT059X2lQRtPK0DwT1AnCGMU7L+4Yfxb3mZ8ZbGywS8eVH/cxlN6gTKa6vybm7/G7/iUq3pzJT7zPThSwLfvv7ZX0oBCyW9R3q9GbcmPIKnZVxSZbmkVqdESS5GWWz03TSRPqnj9/nHf/WinamcShk1FkHQsQzZsC1mwe9DSdwptw86h2nZ1cd+EZ3RRetjyQkCY8QrJsO+QzfhFFGqIQst0GCrbGNYBqps4u2bfWoxXFwRBUOe1Do+kzpVZRcOaQkArvpxdCBqpwJwm4lccApaRzrlnu7mOdchB1vcJZTPwiRRXqDO+VvIwSFPNC9QxSLJDomLKcRT2QbbUGRt2BAGBgDqupoOLSFpOOWwy7MXyQwBZ5M/fBQINKQFrtS2rDzFkKWJXn/PY3NrIdXVONZ372aWmgI8QhVNzimS4tXZOkBohjSvwvWJAIrawRaAwxSGHqbpqe3xt9hxmQaXfsBUpcpRoRVvnTUNKKMve6Lx27wNEjb0tgTljAAA=') format('woff2'),
+  url('iconfont.woff?t=1557125126157') format('woff'),
+  url('iconfont.ttf?t=1557125126157') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+  url('iconfont.svg?t=1557125126157#other-iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.other-iconfont {
+  font-family: "other-iconfont" !important;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.other-icon-success:before {
+  content: "\e650";
+}
+
+.other-icon-info:before {
+  content: "\e6af";
+}
+
+.other-icon-error:before {
+  content: "\e65f";
+}
+
+.other-icon-warn:before {
+  content: "\e615";
+}
+

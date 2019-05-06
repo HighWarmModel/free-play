@@ -5,16 +5,7 @@
       <ImgCricleProgress :show="progress" />
     </div>
     <transition name="fade-scale">
-      <template v-if="notPress.hide && notPress.type !== '1'">
-        <img
-          class="distinguish-code-btn"
-          :src="longPressBtn"
-          @touchstart.prevent="handleTouchStart"
-          @touchmove.prevent="handleTouchMove"
-          @touchend="handleTouchEnd"
-        >
-      </template>
-      <template v-else-if="notPress.type === '1'">
+      <template v-if="notPress.hide">
         <img
           class="distinguish-code-btn"
           :src="longPressBtn"
@@ -25,15 +16,15 @@
       </template>
     </transition>
     <transition name="fade-scale">
-      <template v-if="!notPress.hide && notPress !== '1'">
+      <template v-if="!notPress.hide">
         <img
           class="distinguish-code-content"
-          :src="src"
+          :src="notPress.codeImg"
         >
       </template>
     </transition>
     <div v-show="false">
-      <img :src="src">
+      <img :src="notPress.codeImg">
     </div>
   </div>
 </template>
@@ -74,7 +65,6 @@ export default {
       token: state => state.user.token
     })
   },
-
   methods: {
     ...mapMutations(['APP_OPERAPOPUP_MUTATE']),
     handleTouchStart (e) {
@@ -88,12 +78,12 @@ export default {
       // 一定时间之后显示二维码
       this.timer = setTimeout(() => {
         this.timer = null
-        if (this.notPress.type !== '1') {
-          this.$emit('trigger-hide', {
-            ...this.notPress,
-            hide: false
-          })
-        }
+        // if (this.notPress.type !== '1') {
+        this.$emit('trigger-hide', {
+          ...this.notPress,
+          hide: false
+        })
+        // }
         this.progress = false
         const id = this.notPress.id
         const idStr = `taskId-${id}`
@@ -133,14 +123,23 @@ export default {
             tid: this.tid,
             action: 'start'
           })
-          if (this.notPress.type === '1') {
-            location.href = `${this.notPress.url}&userId=${this.token}_${this.tid}`
-          }
+          // if (this.notPress.type === '1') {
+          //   location.href = `${this.notPress.url}&userId=${this.token}_${this.tid}`
+          // }
           return
         }
         clearTimeout(this.timer)
         if (res && res.return_code === -300) {
-          this.APP_OPERAPOPUP_MUTATE(true)
+          // this.APP_OPERAPOPUP_MUTATE(true)
+          this.$Confirm({
+            mask: true,
+            maskClose: true,
+            title: '游戏次数用完了',
+            position: 'top',
+            transitionName: 'slide',
+            content: '明天再来哦~',
+            confirmName: '知道了'
+          })
         }
       })
       // .then(res => {

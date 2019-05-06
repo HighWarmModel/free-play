@@ -2,7 +2,7 @@ export default {
   /**
    * @description 配置显示在浏览器标签的title
    */
-  title: '免费抓娃娃',
+  title: '免费嗨抓',
   /**
    * @description Cookie中储存的键名
    */

@@ -143,7 +143,7 @@ export default {
           const lat = res.latitude // 纬度，浮点数，范围为90 ~ -90
           const lng = res.longitude // 经度，浮点数，范围为180 ~ -180。
           $this.handleLogin({ token, tid, lat, lng })
-          // $this.handleLogin({ token, tid })
+          // // $this.handleLogin({ token, tid, lat: 90, lng: 180 })
         },
         cancel: function () {
           wx.closeWindow()
